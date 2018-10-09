@@ -1,15 +1,12 @@
 pipeline {
     agent any
     stages {
-        stage('Example') {
-            steps {
-                sh 'oc version'
+        stage('Docker Build') {
+            dir('storage') {
+                steps {
+                    sh "oc start-build storage --follow --from-file=./Dockerfile"
+                }
             }
-        }
-    }
-    post { 
-        always { 
-            echo 'I will always say Hello again!'
         }
     }
 }
